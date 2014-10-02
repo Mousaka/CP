@@ -3,7 +3,7 @@
 if [ -z "$1"]; then
 	for i in *.f; do
 	echo "Compiling all..."
-	gfortran -o ${1%%.*}.o $i -L /usr/local/pgplot -lpgplot -lX11
+	gfortran -o ${i%%.*}.o $i -L /usr/local/pgplot -lpgplot -lX11
 	done
 else
 	echo $1
