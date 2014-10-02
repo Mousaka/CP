@@ -1,0 +1,27 @@
+Notes from Computational physics
+
+interpreter: Translates language, You write in readable code, but the interpreter translates this for the machine to understand.
+
+Pseudo code: fake, not real thing. Understandable code for humans but it's not really working.
+Example:
+	loop
+		print welcome message
+	end loop
+
+But in fortran:
+	DO I=1, 10
+		WRITE(*,*) "welcome"
+	END
+
+
+Command for pgplot and GFORTRAN::::
+
+gfortran -o [filename instead of a.out] myprogram.f -L /usr/local/pgplot -lpgplot -lX11
+
+
+
+Test
+gfortran -o outfile.o pg_test.f -L /usr/local/pgplot -lpgplot -lX11
+
+
+nulldevice xwindow
