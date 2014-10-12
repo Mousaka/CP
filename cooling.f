@@ -35,3 +35,6 @@
         close(10)
       end
 
+      subroutine output
+      	if t = 0 then
+
