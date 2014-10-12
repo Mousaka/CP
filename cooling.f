@@ -1,7 +1,8 @@
       program cooling
-      real t, T_coffee, T_room, r, delta_t, tmax, temps_black(23), temps_milk(23)
+      real t, T_coffee, T_room, r, delta_t, tmax, time_stamps(23), temps_black(23), temps_milk(23)
       integer nshow, counter
       counter = 0
+      call readData(time_stamps, temps_black, temps_milk)
       call Euler(t, T_coffee, T_room, r, delta_t, tmax, nshow)
       end
 
@@ -22,11 +23,15 @@
       	nshow = NINT(tshow/delta_t) !rounds into integer
       end
 
-      subroutine readData(temps_black, temps_milk
+      subroutine readData(time_stamps, temps_black, temps_milk)
+      	real temps_black(23)
+      	real temps_milk(23)
+      	real time_stamps(23)
       	open(unit=10,file='coffee_expt.dat')
-      	DO I=1,23
-        	read(10,*) temps_black(I), temps_milk(I)
-        	write(*,*) temps_black(I), temps_milk(I))
+      	DO I=1,24
+        	read(10,*) time_stamps(I), temps_milk(I), temps_black(I)
+        	write(*,*) time_stamps(I), temps_milk(I), temps_black(I)
         enddo
+        close(10)
       end
 
