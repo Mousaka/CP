@@ -1,5 +1,7 @@
       program cooling
-      real t, T_coffee, T_room, r, delta_t, tmax, time_stamps(23), temps_black(23), temps_milk(23)
+      implicit none
+      real t, T_coffee, T_room, r, delta_t, tmax, time_stamps(24)
+      real temps_black(24), temps_milk(24)
       integer nshow, counter
       counter = 0
       call readData(time_stamps, temps_black, temps_milk)
@@ -23,18 +25,14 @@
       	nshow = NINT(tshow/delta_t) !rounds into integer
       end
 
-      subroutine readData(time_stamps, temps_black, temps_milk)
-      	real temps_black(23)
-      	real temps_milk(23)
-      	real time_stamps(23)
+      subroutine readData(time_s, temps_b, temps_m)
+      	real temps_b(24)
+      	real temps_m(24)
+      	real time_s(24)
       	open(unit=10,file='coffee_expt.dat')
       	DO I=1,24
-        	read(10,*) time_stamps(I), temps_milk(I), temps_black(I)
-        	write(*,*) time_stamps(I), temps_milk(I), temps_black(I)
+        	read(10,*) time_s(I), temps_m(I), temps_b(I)
+        	write(*,*) time_s(I), temps_m(I), temps_b(I)
         enddo
         close(10)
       end
-
-      subroutine output
-      	if t = 0 then
-

@@ -1,6 +1,6 @@
       program cooling
       implicit none
-      real r,time,t_max,T,Ts,T_ini,delta_t
+      real r,time,t_max,T,Ts,T_ini,delta_t, getR
       integer pgopen,i,n_steps,i_again
 
  100  write(*,*) "Cooling rate and surroundind temperature = 17:"
@@ -16,6 +16,7 @@
 
  102  write (*,*) 'Please type in the small time interval delta_t :'
       delta_t = 0.001 !read (*,*) delta_t
+      time = 0
 
       call pgeras
       call pgenv(0.0,t_max,35.0,85.0,0,0)
@@ -25,9 +26,9 @@
       T = T_ini
       call pgsci(2)
       do i=1,n_steps
-        time = i*delta_t
-        T = T - r*(T-Ts)*delta_t
+        call Euler(time, T, Ts, r,delta_t)
         if (T.le.45.0) call pgsci(3)
+        write(*,*) "Plot plot"
         call pgpt (1,time,T,-1)
       end do
       call pgsci(1)
@@ -39,6 +40,12 @@
 
       end
 
+      subroutine Euler(t, T_coffee, T_room, r, delta_t)
+        change = -r*(T_coffee - T_room)*delta_t
+        T_coffee = T_coffee + change
+        t = t + delta_t
+      end
+
       subroutine readData()
       	real temps_black(24)
       	real temps_milk(24)
@@ -46,7 +53,7 @@
       	open(unit=10,file='coffee_expt.dat')
       	DO I=1,24
         	read(10,*) time_stamps(I), temps_milk(I), temps_black(I)
-        	write(*,*) time_stamps(I), temps_milk(I), temps_black(I)
+        	!write(*,*) time_stamps(I), temps_milk(I), temps_black(I)
         enddo
         close(10)
         call pgsci(5)
@@ -56,4 +63,9 @@
         call pgline(23, time_stamps, temps_black)
         call pgpt(23, time_stamps, temps_black, 2)
         return
+      end
+
+      function getR(t_stamps, temps_coffee)
+      real temps_coffee(23)
+      getR = 1
       end
