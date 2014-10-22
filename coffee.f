@@ -8,9 +8,9 @@
       Ts = 17
       write(*,*)     'Time duration and initial temperature:'
       !read(*,*) t_max, T_ini
-      t_max = 60
-      T_ini = 82.3
-
+      t_max = 20
+      T_ini = 90.0
+      
       if(pgopen('/xwin').le.0) stop
       call pgpap (5.0,0.75)
 
@@ -19,15 +19,15 @@
       time = 0
 
       call pgeras
-      call pgenv(0.0,t_max,35.0,85.0,0,0)
+      call pgenv(0.0,t_max,70.0,T_ini+5,0,0)
       call pglab('Time (min)','Temperature (C)','Cooling Time')
-      call readData()
+      !call readData()  not needed now
       n_steps = int(t_max/delta_t)
       T = T_ini
       call pgsci(2)
       do i=1,n_steps
         call Euler(time, T, Ts, r,delta_t)
-        if (T.le.45.0) call pgsci(3)
+        if (T.le.75.0) call pgsci(3)
         write(*,*) "Plot plot"
         call pgpt (1,time,T,-1)
       end do
