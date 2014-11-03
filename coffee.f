@@ -1,7 +1,7 @@
       program cooling
       implicit none
       real r,time,t_max,T,Ts,T_ini,delta_t, getR
-      integer pgopen,i,n_steps,i_again
+      integer pgopen,i,n_steps,i_again, addedMilk, zipAble
 
  100  write(*,*) "Cooling rate and surroundind temperature = 17:"
       read(*,*) r  !, Ts
@@ -17,18 +17,56 @@
  102  write (*,*) 'Please type in the small time interval delta_t :'
       delta_t = 0.001 !read (*,*) delta_t
       time = 0
-
+      T = T_ini
       call pgeras
       call pgenv(0.0,t_max,70.0,T_ini+5,0,0)
       call pglab('Time (min)','Temperature (C)','Cooling Time')
       !call readData()  not needed now
+      !adding milk first
+      zipAble = 0
       n_steps = int(t_max/delta_t)
-      T = T_ini
       call pgsci(2)
       do i=1,n_steps
         call Euler(time, T, Ts, r,delta_t)
-        if (T.le.75.0) call pgsci(3)
-        write(*,*) "Plot plot"
+        if (zipAble.eq.0.and.T.le.75.0) then
+          call pgsci(3)
+          zipAble = 1
+          write(*,*) "Milk at start makes coffee sipable after ",time
+        end if
+        !write(*,*) "Plot plot"
+        call pgpt (1,time,T,-1)
+        if (i.eq.2) then
+          call pgmove(time, T)
+          T = T - 5
+          call pgsci(4)
+          call pgdraw(time, T)
+          call pgsci(2)
+        end if
+      end do
+
+      !Adding milk at the end
+      addedMilk = 0;
+      time = 0
+      zipAble = 0
+      n_steps = int(t_max/delta_t)
+      T = T_ini
+      call pgsci(6)
+      do i=1,n_steps
+        call Euler(time, T, Ts, r,delta_t)
+        if (addedMilk.eq.0.and.T.le.80.0) then
+          call pgmove(time,T)
+          addedMilk = 1
+          T = T-5
+          call pgsci(1)
+          call pgdraw(time, T)
+          call pgsci(6)
+        end if
+        if (zipAble.eq.0.and.T.le.75.0) then
+          call pgsci(7)
+          write(*,*) "Milk at end makes coffee sipable after ", time
+          zipAble = 1
+        end if
+        !write(*,*) "Plot plot"
         call pgpt (1,time,T,-1)
       end do
       call pgsci(1)
