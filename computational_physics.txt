@@ -27,3 +27,10 @@ gfortran -o outfile.o pg_test.f -L /usr/local/pgplot -lpgplot -lX11
 nulldevice xwindow
 
 Falling objects
+
+
+EXTRA PROBLEM
+Try to estimate what is the cooling rate for an irish coffee to reverse our conclusion. 
+When whiskey is added, the temp drops 5 degrees.
+The coffe now has a bigger cooling rate!
+How big does it need to be to reverse our conclusion?
