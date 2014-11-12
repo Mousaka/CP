@@ -8,7 +8,7 @@
       if(pgopen('/xwin').le.0) stop
       call pgpap (8.0,0.8)
       call pgask(.false.)
- 100  write(*,*) "Enter cooling rate coffee, temperature = 17:"
+ 100  write(*,*) "Enter cooling rate coffee,,temperature = 17:"
       read(*,*) r_black  !, Ts
       write(*,*) "Enter irish cooling rate guess for it to be" 
       write(*,*) "more effective to add it first"
@@ -92,7 +92,7 @@
         else
           r_irish = r_irish + 0.0001
         end if
-        call sleep_time(2)
+        call sleep_time(1)
         goto 103
       end if
       write (*,*) 'Again ? (1=YES;0=NO)'
