@@ -34,3 +34,6 @@ Try to estimate what is the cooling rate for an irish coffee to reverse our conc
 When whiskey is added, the temp drops 5 degrees.
 The coffe now has a bigger cooling rate!
 How big does it need to be to reverse our conclusion?
+
+PROBLEMS for group:
+8.5 and 8.6
