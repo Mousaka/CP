@@ -22,7 +22,7 @@ c      	write(*,*) "h, v:", h, v
 c		write(*,*) "percentage: " , percentage
 		if(percentage.le.-1) then
 			write(*,*) "Difference is 1% when h = ", h
-	  call pgptext(h + 1000,v1,0.0,0.0,"here difference is 1 percent")
+	  call pgptext(h + 1000,v1,0.0,0.0,"1 percent difference")
 			call pgmove(h, 1200)
 			call pgdraw(h, 1)
 			goto 100
